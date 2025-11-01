@@ -6,8 +6,7 @@ import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Camera, FileUp, Loader2, Video } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Camera, FileUp, Loader2, Video, ScanLine } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 
@@ -17,7 +16,7 @@ type ImageUploaderProps = {
 };
 
 export function ImageUploader({ onImageReady, isLoading }: ImageUploaderProps) {
-  const [imagePreview, setImagePreview] = useState<string | null>(PlaceHolderImages[0]?.imageUrl || null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isCameraOn, setIsCameraOn] = useState(false);
@@ -151,8 +150,10 @@ export function ImageUploader({ onImageReady, isLoading }: ImageUploaderProps) {
                 data-ai-hint="handwritten form"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center">
-                <p className="text-muted-foreground">Image preview will appear here</p>
+              <div className="flex h-full w-full flex-col items-center justify-center text-center text-muted-foreground p-4">
+                <ScanLine className="h-16 w-16 mb-4 animate-pulse text-primary/50" />
+                <p className="font-semibold">Ready to Scan</p>
+                <p className="text-sm">Upload or capture a form to begin.</p>
               </div>
             )
         )}
